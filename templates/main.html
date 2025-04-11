@@ -1,0 +1,119 @@
+<main
+  class="h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center text-center gap-4"
+>
+  <div class="font-light">
+    <div class="text-2xl sm:text-4xl">Hi, I'm</div>
+    <div class="scramble text-3xl sm:text-5xl">Y.S. Lee</div>
+    <div class="text-lg sm:text-2xl">also known as Wizley.</div>
+  </div>
+
+  <div class="text-base sm:text-lg font-light">
+    A passionate Software Developer with a focus on cybersecurity.
+  </div>
+
+  <div class="text-base sm:text-lg font-light">
+    Feel free to explore my stories in
+    <a class="text-indigo-500 font-medium" href="/articles">here</a>
+  </div>
+</main>
+<script>
+  class TextScramble {
+    static SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#________";
+    static ANIMATION_DELAY = 800;
+    static RANDOM_THRESHOLD = 0.28;
+
+    constructor(element) {
+      this.element = element;
+      this.update = this.update.bind(this);
+      this.queue = [];
+      this.frame = 0;
+    }
+
+    setText(newText) {
+      const oldText = this.element.innerText;
+      this.initializeQueue(oldText, newText);
+
+      cancelAnimationFrame(this.frameRequest);
+      this.frame = 0;
+      this.promise = new Promise((resolve) => (this.resolve = resolve));
+
+      this.update();
+      return this.promise;
+    }
+
+    initializeQueue(oldText, newText) {
+      const maxLength = Math.max(oldText.length, newText.length);
+      this.queue = Array.from({ length: maxLength }, (_, i) => {
+        const from = oldText[i] || "";
+        const to = newText[i] || "";
+        const start = Math.floor(Math.random() * 40);
+        const end = start + Math.floor(Math.random() * 40);
+        return { from, to, start, end };
+      });
+    }
+
+    update() {
+      const { output, completed } = this.processQueue();
+      this.element.innerHTML = output;
+
+      if (completed === this.queue.length) {
+        this.resolve();
+      } else {
+        this.frameRequest = requestAnimationFrame(this.update);
+        this.frame++;
+      }
+    }
+
+    processQueue() {
+      let output = "";
+      let completed = 0;
+
+      for (const item of this.queue) {
+        if (this.frame >= item.end) {
+          completed++;
+          output += item.to;
+        } else if (this.frame >= item.start) {
+          item.char = this.shouldUpdateChar(item.char)
+            ? this.getRandomChar()
+            : item.char;
+          output += `<span class="text-red-800">${item.char}</span>`;
+        } else {
+          output += item.from;
+        }
+      }
+
+      return { output, completed };
+    }
+
+    shouldUpdateChar(currentChar) {
+      return !currentChar || Math.random() < TextScramble.RANDOM_THRESHOLD;
+    }
+
+    getRandomChar() {
+      const index = Math.floor(
+        Math.random() * TextScramble.SCRAMBLE_CHARS.length
+      );
+      return TextScramble.SCRAMBLE_CHARS[index];
+    }
+  }
+
+  const phrases = ["Wizley", "Software Developer", "Y.S. Lee"];
+
+  const initScramble = () => {
+    const element = document.querySelector(".scramble");
+    const scramble = new TextScramble(element);
+
+    let phraseIndex = 0;
+
+    const cycleText = () => {
+      scramble.setText(phrases[phraseIndex]).then(() => {
+        setTimeout(cycleText, TextScramble.ANIMATION_DELAY);
+      });
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+    };
+
+    setTimeout(cycleText, 2000);
+  };
+
+  initScramble();
+</script>

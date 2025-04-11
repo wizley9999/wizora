@@ -1,0 +1,36 @@
+<!-- title, description, url, ogImage, header, content, footer -->
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="googlebot"
+      content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+    />
+    <link rel="stylesheet" href="/styles/output.css" />
+
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="{{title}}" />
+    <meta property="og:description" content="{{description}}" />
+    <meta property="og:url" content="{{url}}" />
+    <meta property="og:site_name" content="{{name}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ogImage}}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{title}}" />
+    <meta name="twitter:description" content="{{description}}" />
+    <meta name="twitter:image" content="{{ogImage}}" />
+  </head>
+  <body class="relative font-inter max-w-4xl mx-auto px-4">
+    {{header}}
+    <div class="pt-14">{{content}} {{footer}}</div>
+  </body>
+</html>

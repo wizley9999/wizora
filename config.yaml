@@ -1,0 +1,16 @@
+base: "https://wizley.io" # DO NOT INCLUDE "/" AT THE END.
+
+author:
+  name: "Wizley"
+  github: "wizley9999"
+
+giscus:
+  repo: "[ENTER REPO HERE]"
+  repoId: "[ENTER REPO ID HERE]"
+  category: "[ENTER CATEGORY NAME HERE]"
+  categoryId: "[ENTER CATEGORY ID HERE]"
+  mapping: "pathname"
+  reactionsEnabled: "1"
+  inputPosition: "top"
+  theme: "light"
+  lang: "en"
