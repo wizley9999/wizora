@@ -1,15 +1,14 @@
+<!-- name, tagline, identities -->
 <main
   class="h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center text-center gap-4"
 >
   <div class="font-light">
     <div class="text-2xl sm:text-4xl">Hi, I'm</div>
-    <div class="scramble text-3xl sm:text-5xl">Y.S. Lee</div>
-    <div class="text-lg sm:text-2xl">also known as Wizley.</div>
+    <div class="scramble text-3xl sm:text-5xl">{{name}}</div>
+    <div class="text-lg sm:text-2xl">also known as {{name}}.</div>
   </div>
 
-  <div class="text-base sm:text-lg font-light">
-    A passionate Software Developer with a focus on cybersecurity.
-  </div>
+  <div class="text-base sm:text-lg font-light">{{tagline}}</div>
 
   <div class="text-base sm:text-lg font-light">
     Feel free to explore my stories in
@@ -97,7 +96,7 @@
     }
   }
 
-  const phrases = ["Wizley", "Software Developer", "Y.S. Lee"];
+  const phrases = {{identities}};
 
   const initScramble = () => {
     const element = document.querySelector(".scramble");
@@ -112,7 +111,7 @@
       phraseIndex = (phraseIndex + 1) % phrases.length;
     };
 
-    setTimeout(cycleText, 2000);
+    setTimeout(cycleText, 800);
   };
 
   initScramble();

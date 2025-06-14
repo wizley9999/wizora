@@ -3,6 +3,10 @@ base: "https://wizley.io" # DO NOT INCLUDE "/" AT THE END.
 author:
   name: "Wizley"
   github: "wizley9999"
+  identities:
+    - "Y.S. Lee"
+    - "Software Developer"
+  tagline: "A passionate Software Developer with a focus on cybersecurity."
 
 giscus:
   repo: "[ENTER REPO HERE]"

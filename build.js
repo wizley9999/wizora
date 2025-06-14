@@ -74,7 +74,11 @@ function generateIndexPage() {
     github: config.author.github,
   });
 
-  const content = renderTemplate(mainTemplate);
+  const content = renderTemplate(mainTemplate, {
+    name: config.author.name,
+    tagline: config.author.tagline,
+    identities: JSON.stringify(config.author.identities || []),
+  });
 
   const page = renderTemplate(baseTemplate, {
     title: config.author.name,
