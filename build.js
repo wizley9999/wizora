@@ -25,17 +25,6 @@ const marked = new Marked(
   })
 );
 
-const renderer = {
-  link(href, title, text) {
-    const link = marked.Renderer.prototype.link.call(this, href, title, text);
-    return link.replace("<a", "<a target='_blank' rel='noreferrer' ");
-  },
-};
-
-marked.use({
-  renderer,
-});
-
 function loadTemplate(template) {
   return fs.readFileSync(path.join(TEMPLATE_DIR, `${template}.html`), "utf-8");
 }
@@ -160,13 +149,7 @@ function generateArticlesPage() {
     footer,
   });
 
-  const outputDir = path.join(OUTPUT_DIR, "articles");
-
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
-
-  fs.writeFileSync(path.join(outputDir, "index.html"), page);
+  fs.writeFileSync(path.join(OUTPUT_DIR, "articles.html"), page);
 }
 
 function generatePostPage() {
@@ -212,6 +195,23 @@ function generatePostPage() {
       fs.readFileSync(indexPath, "utf-8")
     );
 
+    const renderer = {
+      link({ href, text }) {
+        return `<a target="_blank" rel="noreferrer" href="${href}">${text}</a>`;
+      },
+      image({ href, text }) {
+        let cHref = href;
+
+        if (!href.startsWith("http://") && !href.startsWith("https://")) {
+          cHref = `/articles/${dir}/${path.basename(href)}`;
+        }
+
+        return `<img src="${cHref}" alt="${text}">`;
+      },
+    };
+
+    marked.use({ renderer });
+
     const postContent = renderTemplate(postDetailTemplate, {
       date: metadata.date,
       localeDate: new Date(metadata.date).toLocaleDateString("en-US", {
@@ -247,7 +247,7 @@ function generatePostPage() {
       footer,
     });
 
-    fs.writeFileSync(path.join(outputDir, "index.html"), page);
+    fs.writeFileSync(`${outputDir}.html`, page);
   });
 }
 
