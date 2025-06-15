@@ -6,7 +6,7 @@ import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 
-const CONTENT_DIR = "content";
+const CONTENTS_DIR = "contents";
 const OUTPUT_DIR = "public";
 const TEMPLATE_DIR = "templates";
 
@@ -110,11 +110,11 @@ function generateArticlesPage() {
     name: config.author.name,
   });
 
-  const postDirs = fs.readdirSync(CONTENT_DIR);
+  const postDirs = fs.readdirSync(CONTENTS_DIR);
 
   const postItems = postDirs
     .map((dir) => {
-      const postPath = path.join(CONTENT_DIR, dir, "index.md");
+      const postPath = path.join(CONTENTS_DIR, dir, "index.md");
       if (!fs.existsSync(postPath)) return "";
 
       const { data: metadata, content: content } = matter(
@@ -186,10 +186,10 @@ function generatePostPage() {
     name: config.author.name,
   });
 
-  const postDirs = fs.readdirSync(CONTENT_DIR);
+  const postDirs = fs.readdirSync(CONTENTS_DIR);
 
   postDirs.forEach((dir) => {
-    const postPath = path.join(CONTENT_DIR, dir);
+    const postPath = path.join(CONTENTS_DIR, dir);
     const postFiles = fs.readdirSync(postPath);
 
     const indexPath = path.join(postPath, "index.md");
@@ -252,11 +252,11 @@ function generatePostPage() {
 }
 
 function generateSitemap() {
-  const postDirs = fs.readdirSync(CONTENT_DIR);
+  const postDirs = fs.readdirSync(CONTENTS_DIR);
 
   const urls = postDirs
     .map((dir) => {
-      const postPath = path.join(CONTENT_DIR, dir);
+      const postPath = path.join(CONTENTS_DIR, dir);
       const indexPath = path.join(postPath, "index.md");
 
       if (!fs.existsSync(indexPath)) return null;
