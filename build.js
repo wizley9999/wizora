@@ -235,7 +235,7 @@ function generatePostPage() {
     });
 
     const page = renderTemplate(baseTemplate, {
-      title: `${metadata.title} - ${config.author.name}`,
+      title: metadata.title,
       description: marked
         .parse(content)
         .replace(/<[^>]*>/g, "")
