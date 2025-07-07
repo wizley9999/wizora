@@ -11,7 +11,7 @@ Live: [wizley.io](https://wizley.io)
 
 ## Features
 
-- **Markdown to HTML Conversion**: The site generator reads `.md` files from the `content` directory and converts them into static HTML pages.
+- **Markdown to HTML Conversion**: The site generator reads `.md` files from the `contents` directory and converts them into static HTML pages.
 - **Template Rendering**: Uses HTML templates for consistent layout across pages. Templates include a `header`, `footer`, and `layout` among others.
 - **Post Previews**: On the index page, posts are displayed with a title, date, and a preview of the content.
 - **Post Detail Pages**: Each post has a dedicated page with full content.
@@ -21,7 +21,7 @@ Live: [wizley.io](https://wizley.io)
 ## Project Structure
 
 ```bash
-├── content/                # Directory for blog posts (Markdown files)
+├── contents/                # Directory for blog posts (Markdown files)
 │   ├── [post-slug]/[image].png
 │   └── [post-slug]/index.md
 ├── public/                 # Generated static site files (HTML, assets)
@@ -53,6 +53,11 @@ base: "https://myblog.com"
 author:
   name: "My Blog"
   github: "github-username"
+  identities:
+    - "Word1"
+    - "Word2"
+    - "Word3"
+  tagline: "A short-sentence self-introduction"
 
 giscus:
   repo: "username/repository"
@@ -78,9 +83,9 @@ npm install
 
 ### 2. Prepare Your Content
 
-Place your blog posts in the `content/` directory. Each post should be a directory named after its slug, containing an `index.md` file with front-matter metadata and the content in Markdown format.
+Place your blog posts in the `contents/` directory. Each post should be a directory named after its slug, containing an `index.md` file with front-matter metadata and the content in Markdown format.
 
-#### Example of content/first-post/index.md
+#### Example of contents/first-post/index.md
 
 ```markdown
 ---
@@ -113,7 +118,7 @@ npm run build
 This will:
 
 1. Generate `styles/output.css` through the @tailwindcss/cli based on `templates/input.css`.
-2. Read all the `.md` files in the `content/` directory.
+2. Read all the `.md` files in the `contents/` directory.
 3. Generate static HTML files for each post in the `public/` directory.
 4. Create an `index.html` file listing all the posts.
 5. Copy over any non-Markdown assets like images into the `public/` directory.
