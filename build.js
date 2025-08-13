@@ -104,11 +104,14 @@ function generateArticlesPage() {
   const postItems = postDirs
     .map((dir) => {
       const postPath = path.join(CONTENTS_DIR, dir, "index.md");
-      if (!fs.existsSync(postPath)) return "";
+
+      if (!fs.existsSync(postPath)) return null;
 
       const { data: metadata, content: content } = matter(
         fs.readFileSync(postPath, "utf-8")
       );
+
+      if (metadata.hidden === true) return null;
 
       const postDate = new Date(metadata.date);
 
@@ -176,9 +179,11 @@ function generatePostPage() {
     const postFiles = fs.readdirSync(postPath);
 
     const indexPath = path.join(postPath, "index.md");
+
     if (!fs.existsSync(indexPath)) return;
 
     const outputDir = path.join(`${OUTPUT_DIR}/articles`, dir);
+
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
@@ -187,6 +192,7 @@ function generatePostPage() {
       if (file !== "index.md") {
         const srcPath = path.join(postPath, file);
         const destPath = path.join(outputDir, file);
+
         fs.copyFileSync(srcPath, destPath);
       }
     });
@@ -194,6 +200,8 @@ function generatePostPage() {
     const { data: metadata, content: content } = matter(
       fs.readFileSync(indexPath, "utf-8")
     );
+
+    if (metadata.hidden === true) return;
 
     const renderer = {
       link({ href, text }) {
@@ -261,7 +269,12 @@ function generateSitemap() {
 
       if (!fs.existsSync(indexPath)) return null;
 
+      const { data: metadata } = matter(fs.readFileSync(indexPath, "utf-8"));
+
+      if (metadata.hidden === true) return null;
+
       const postUrl = `/articles/${dir}`;
+
       return {
         loc: `${config.base}${postUrl}`,
         lastmod: new Date(
