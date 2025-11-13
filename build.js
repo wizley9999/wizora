@@ -72,7 +72,8 @@ function generateIndexPage() {
   const page = renderTemplate(baseTemplate, {
     title: config.author.name,
     description: `All the latest ${config.author.name} posts, straight from the head.`,
-    url: config.base,
+    canonical: `${config.base}/`,
+    url: `${config.base}/`,
     ogImage: `${config.base}/og-image.png`,
     header,
     content,
@@ -145,7 +146,8 @@ function generateArticlesPage() {
   const page = renderTemplate(baseTemplate, {
     title: config.author.name,
     description: `All the latest ${config.author.name} posts, straight from the head.`,
-    url: config.base,
+    canonical: `${config.base}/articles`,
+    url: `${config.base}/articles`,
     ogImage: `${config.base}/og-image.png`,
     header,
     content,
@@ -248,6 +250,7 @@ function generatePostPage() {
         .parse(content)
         .replace(/<[^>]*>/g, "")
         .slice(0, 120),
+      canonical: `${config.base}/articles/${dir}`,
       url: `${config.base}/articles/${dir}`,
       ogImage: `${config.base}/og-image.png`,
       header,
