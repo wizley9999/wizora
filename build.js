@@ -127,7 +127,9 @@ function generateArticlesPage() {
           title: metadata.title,
           preview: marked
             .parse(content)
-            .replace(/<[^>]*>/g, "")
+            .replace(/<[^>]*>/g, " ")
+            .replace(/\s+/g, " ")
+            .trim()
             .slice(0, 300),
           slug: `/articles/${dir}`,
         }),
@@ -245,7 +247,9 @@ function generatePostPage() {
       image: `${config.base}/og-image.png`,
       description: marked
         .parse(content)
-        .replace(/<[^>]*>/g, "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
         .slice(0, 120),
     });
 
@@ -253,7 +257,9 @@ function generatePostPage() {
       title: metadata.title,
       description: marked
         .parse(content)
-        .replace(/<[^>]*>/g, "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
         .slice(0, 120),
       canonical: `${config.base}/articles/${dir}`,
       url: `${config.base}/articles/${dir}`,
