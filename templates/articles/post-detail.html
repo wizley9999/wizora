@@ -1,4 +1,4 @@
-<!-- date, localeDate, title, github, name, content, giscus -->
+<!-- date, localeDate, title, github, name, content, giscus, image, description -->
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
@@ -80,4 +80,20 @@
       ></script>
     </div>
   </div>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "{{title}}",
+      "description": "{{description}}",
+      "image": "{{image}}",
+      "author": {
+        "@type": "Person",
+        "name": "{{name}}",
+        "url": "{{github}}"
+      },
+      "datePublished": "{{date}}"
+    }
+  </script>
 </main>

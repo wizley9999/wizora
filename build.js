@@ -242,6 +242,11 @@ function generatePostPage() {
       inputPosition: config.giscus.inputPosition,
       theme: config.giscus.theme,
       lang: config.giscus.lang,
+      image: `${config.base}/og-image.png`,
+      description: marked
+        .parse(content)
+        .replace(/<[^>]*>/g, "")
+        .slice(0, 120),
     });
 
     const page = renderTemplate(baseTemplate, {
