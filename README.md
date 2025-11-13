@@ -4,7 +4,7 @@ This project is a simple static site generator designed to convert Markdown-base
 
 ## Overview
 
-Live: [wizley.io](https://wizley.io)
+Live: [blog.wizley.io](https://blog.wizley.io/)
 
 ![1](screenshots/1.png)
 ![2](screenshots/2.png)
